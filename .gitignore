@@ -1,0 +1,22 @@
+# Node
+node_modules/
+dist/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Test artifacts
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

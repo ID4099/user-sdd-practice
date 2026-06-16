@@ -1,0 +1,80 @@
+schema: spec-driven
+
+# ---------------------------------------------------------------------------
+# Project context (keep under 10 lines)
+# ---------------------------------------------------------------------------
+context: |
+  Project: user-sdd-practice
+  Initialized: 2026-06-11
+  Stack: Greenfield — no source files detected at init time
+  Architecture: To be defined as the project grows
+  Testing: No test runner detected at init; strict_tdd set to false
+  Persistence: openspec
+  Commits/PRs: Handled manually by the user — agent must NOT commit, push, or open PRs
+
+# ---------------------------------------------------------------------------
+# Strict TDD
+# Decision gate: no test runner found → strict_tdd: false
+# Update this to true once a test runner is added to the project.
+# ---------------------------------------------------------------------------
+strict_tdd: true
+
+# ---------------------------------------------------------------------------
+# Testing capabilities
+# ---------------------------------------------------------------------------
+testing:
+  runner:
+    available: true
+    command: "npm test"
+    framework: "jest"
+  layers:
+    unit:
+      available: true
+      tool: "jest + ts-jest"
+    integration:
+      available: true
+      tool: "jest + @nestjs/testing"
+    e2e:
+      available: true
+      tool: "jest + supertest (test/jest-e2e.json)"
+  coverage:
+    available: true
+    command: "npm run test:cov"
+  quality:
+    linter:
+      available: false
+      command: ""
+    type_checker:
+      available: true
+      command: "npx tsc --noEmit"
+    formatter:
+      available: false
+      command: ""
+
+# ---------------------------------------------------------------------------
+# Phase rules
+# ---------------------------------------------------------------------------
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - State clear acceptance criteria
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    - Write tests BEFORE implementation (strict TDD enforced)
+    tdd: true
+    test_command: "npm test"
+  verify:
+    test_command: "npm test"
+    build_command: "npm run build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
