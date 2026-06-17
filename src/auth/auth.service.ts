@@ -7,12 +7,12 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import type { StringValue } from 'ms';
 import { IsNull, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../users/user.entity';
 import { RefreshSession } from './refresh-session.entity';
 import { JwtPayload } from './jwt.strategy';
-
 const BCRYPT_ROUNDS = 10;
 
 /** Token pair returned by login and refresh operations. */
@@ -192,7 +192,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRES_IN', '15m'),
+      expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRES_IN', '15m') as StringValue,
     });
 
     // Opaque refresh token: random UUID → bcrypt hash stored, plain returned
